@@ -38,17 +38,15 @@ namespace Demo1
     {
       if (await _featureManager.IsEnabledAsync("FunColours"))
       {
-        using (var colors = GetNextColour().GetEnumerator())
-        {
+          using var colors = GetNextColour().GetEnumerator();
           foreach (var c in line)
           {
-            colors.MoveNext();
-            Console.ForegroundColor = colors.Current;
+              colors.MoveNext();
+              Console.ForegroundColor = colors.Current;
 
-            Console.Write(c);
+              Console.Write(c);
           }
           Console.WriteLine();
-        }
       }
       else
       {
