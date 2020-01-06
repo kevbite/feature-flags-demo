@@ -9,7 +9,7 @@ namespace Demo1
   {
     private readonly IFeatureManager _featureManager;
 
-    public App(IFeatureManagerSnapshot featureManager)
+    public App(IFeatureManager featureManager)
     {
       _featureManager = featureManager;
     }
@@ -19,24 +19,24 @@ namespace Demo1
       for (var up = true; ; up = !up)
       {
         Console.Clear();
-        WriteLine("Welcome to this amazing feature manager demo");
+        await WriteLine("Welcome to this amazing feature manager demo");
 
         if (up)
         {
-          WriteLine(CarUp);
+          await WriteLine(CarUp);
         }
         else
         {
-          WriteLine(CarDown);
+          await WriteLine(CarDown);
         }
 
         await Task.Delay(500);
       }
     }
 
-    private void WriteLine(string line = "")
+    private async Task WriteLine(string line = "")
     {
-      if (_featureManager.IsEnabled("FunColours"))
+      if (await _featureManager.IsEnabledAsync("FunColours"))
       {
         using (var colors = GetNextColour().GetEnumerator())
         {
